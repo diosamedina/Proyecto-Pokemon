@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const { Pokemon } = require("../db");
+const { Pokemon, Type } = require("../db");
 
 const infoCleaner = (poke) => { 
     return {
@@ -19,7 +19,6 @@ const infoCleaner = (poke) => {
 
 const getAllPokemons = async () => {
     const pokemonsApi = (await axios.get("https://pokeapi.co/api/v2/pokemon")).data;
-    console.log(pokemonsApi);
 
     const pokemonsDB = await Pokemon.findAll();
     
@@ -41,15 +40,25 @@ const getPokemonById = async (id, source) => {
 const getPokemonByName = async (name) => {
     const infoApi = (await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)).data;
     const pokemonApi = infoCleaner(infoApi);
-    console.log(pokemonApi);
     
     const pokemonDb = await Pokemon.findAll({where: {nombre: name}});
     
     return { "Base de datos": pokemonDb, "PokeApi": pokemonApi }
 };
 
-const createPokemonDB = async (nombre, imagen, vida, ataque, defensa, velocidad, altura, peso) => {
-    return await Pokemon.create({nombre, imagen, vida, ataque, defensa, velocidad, altura, peso});
+const createPokemonDB = async (nombre, imagen, vida, ataque, defensa, velocidad, altura, peso, typeId1, typeId2) => {
+    const post = await Pokemon.create({nombre, imagen, vida, ataque, defensa, velocidad, altura, peso});
+    
+    const type1 = await Type.findByPk(typeId1);
+    const pokemon1 = await Pokemon.findByPk(post.id);
+    await type1.addPokemon(pokemon1);
+
+    const type2 = await Type.findByPk(typeId2);
+    const pokemon2 = await Pokemon.findByPk(post.id);
+    await type2.addPokemon(pokemon2);
+    
+    console.log('Pokemon creado y tipos asociados con éxito');
+    return post
 };
 
 module.exports = { getAllPokemons, getPokemonById, getPokemonByName, createPokemonDB }

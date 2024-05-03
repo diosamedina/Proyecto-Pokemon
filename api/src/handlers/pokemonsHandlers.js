@@ -29,10 +29,10 @@ const getDetailHandler = async (req, res) => {
 };
 
 const createPokemonsHandler = async (req, res) => {
-    const { nombre, imagen, vida, ataque, defensa, velocidad, altura, peso } = req.body;
-    console.log(nombre, imagen, vida, ataque, defensa, velocidad, altura, peso)
+    const { nombre, imagen, vida, ataque, defensa, velocidad, altura, peso, typeId1, typeId2 } = req.body;
+    console.log(nombre, imagen, vida, ataque, defensa, velocidad, altura, peso, typeId1, typeId2)
     try {
-        const newPokemon = await createPokemonDB(nombre.toLowerCase(), imagen, vida, ataque, defensa, velocidad, altura, peso);
+        const newPokemon = await createPokemonDB(nombre.toLowerCase(), imagen, vida, ataque, defensa, velocidad, altura, peso, typeId1, typeId2);
         res.status(200).json(newPokemon);
     } catch (error) {
         res.status(400).json({ error: error.message })
