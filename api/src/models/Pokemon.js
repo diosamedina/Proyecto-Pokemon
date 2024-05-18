@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true
-   },
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -42,9 +42,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    creado: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true
+    origen: {
+      type: DataTypes.TEXT,
+      defaultValue: "BD"
     }
   }, { timestamps: false });  // Para que Sequelize no cree automáticamente las columnas createdAt y updatedAt en el modelo de tabla de base de datos
 };

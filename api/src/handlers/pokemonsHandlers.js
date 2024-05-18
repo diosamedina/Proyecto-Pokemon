@@ -2,7 +2,7 @@ const { getAllPokemons, getPokemonById, getPokemonByName, createPokemonDB } = re
 
 const getPokemonsHandler = async (req, res) => {
     const { nombre } = req.query;
-    console.log(nombre);
+    console.log('handler', nombre);
     try {
         if (nombre) {
             const pokemonByName = await getPokemonByName(nombre.toLowerCase());

@@ -9,10 +9,10 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       allowNull: false,
       primaryKey: true
-   },  // Puede ser automático
+    },  // Puede ser automático
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-}, { timestamps: false });  // Para que Sequelize no cree automáticamente las columnas createdAt y updatedAt en el modelo de tabla de base de datos
+    }
+  }, { timestamps: false });  // Para que Sequelize no cree automáticamente las columnas createdAt y updatedAt en el modelo de tabla de base de datos
 };
